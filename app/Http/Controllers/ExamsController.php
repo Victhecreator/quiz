@@ -10,6 +10,7 @@ use App\Models\Exam;
 use Auth;
 use App\Models\ExamAnswers;
 use App\Models\Answer;
+use App\Models\Examcourses;
 
 
 class ExamsController extends Controller
@@ -17,10 +18,12 @@ class ExamsController extends Controller
     //
 
     public function index(){
-        return view('exams');
+        $courses = Examcourses::all();
+        return view('exams', ['courses'=>$courses]);
     }
 
     public function create_exam(Request $request){
+        $courseId = $request->input('course_id');
         $question = Question::with('answers')
             ->where('course_id', $courseId)
             ->inRandomOrder()
@@ -29,7 +32,8 @@ class ExamsController extends Controller
         
         $exam = Exam::create(
             ['user_id' => Auth::user()->id,
-            'exam_id' => \Str::uuid() 
+            'exam_id' => \Str::uuid(),
+            'course_id' => $courseId
             ]);
 
         $exam_id = $exam->exam_id;
@@ -38,10 +42,11 @@ class ExamsController extends Controller
             ExamAnswers::create([
                 'exam_id' => $exam_id,
                 'question_id' => $item->question_id
+                
             ]);
         }
 
-        return ["questions"=>$question, "exam_id"=>$exam_id ];
+        return ["questions"=>$question, "exam_id"=>$exam_id, "course_id"=>$courseId,];
     }
 
     public function add_result(Request $request){

@@ -7,7 +7,6 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
         <link rel="stylesheet" href="/css/styles.css">
-        <link rel="stylesheet" href="/boostrap/css/bootstrap.min.css">
         
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -35,8 +34,6 @@
             </main>
         </div>
     </body>
-
-    <script src="/boostrap/js/bootstrap.min.js"></script>
     <script src="js/jquery-3.7.0.min.js"></script>
     <script src="/js/index.js"></script>
 </html>

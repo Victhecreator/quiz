@@ -31,25 +31,33 @@
                     <table class="table-auto">
                         <thead >
                             <tr>
-                               <td id="exampart">CSC 501</th>
-                               <td id="exampart"><button id="exam-btn" class="btn">START</button></td>
+                               <td >Course title</th>
+                               <td></td>
                             <tr>
                         <thead>
                         <tbody>
-                            <tr>  
-                               <td id="exampart">CSC 502</th>                              
-                               <td id="exampart"><button id="exam-btn" class="btn">START</button></td>
-                            </tr>
+                            @foreach ($courses as $course)
+                            <tr>
+                               <td id="exampart">{{ $course->course_title }}</th>
+                               <td id="exampart">
+                                  <button data-id="{{ $course->course_id }}" class="btn start-btn">START</button>
+                                  <span class="loader hide"><i class="fa-regular fa-spinner fa-spin"></i></span>
+                               </td>
+
+                                
+                            <tr>
+                            @endforeach
+                          
                         </tbody>
                     </table>
                 
                     </div>
 
-                    <form id="quizForm" class="hide">
+                    <!-- <form id="quizForm" class="hide">
       
                         <button type="submit" class="btn" id="start-btn">START</button>
                         <span class="loader hide">Please wait..</span>
-                    </form>
+                    </form> -->
 
                     <div id="quiz" class="hide" >
                         <h2 id="questions">Questions goes!</h2>

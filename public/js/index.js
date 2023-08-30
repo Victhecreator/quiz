@@ -11,9 +11,17 @@ $(document).ready(function () {
 
   function restartQuiz() {
   
-    $("#start-btn").click(function (e) {
+    $(".start-btn").click(function (e) {
       e.preventDefault();
-       startQuiz();
+
+      if ($(this).data("id")) {
+        $(this).prop("disabled", true);
+      }
+  
+      
+      $("#quizForm").removeClass("hide");
+      let courseid = $(this).data("id")
+       startQuiz(courseid);
 
     });
 
@@ -31,18 +39,21 @@ $(document).ready(function () {
   function generateExamID() {
     return Math.random().toString(36).substring(2, 10).toUpperCase();
   }
-  function startQuiz() {
+  function startQuiz(courseId) {
    
    
     ExamSession = [];
     Answers = [];
    
   $(".loader").removeClass("hide")
+
     $.ajax({
       url: "create-exam",
       type: 'POST',
       dataType: "json",
-      success: function (result) {
+      data: { course_id: courseId },
+      success: function(result) {
+        courseId = result.course_id;
         myquestions = result.questions
 
         ExamSession.push({
@@ -95,7 +106,7 @@ $(document).ready(function () {
       button.dataset.question_id = currentQuestion.question_id;
       button.dataset.answer_id = answer.answer_id;
     });
-    quizForm.classList.add("hide");
+    $("#options").addClass("hide");
     $("#quiz").removeClass("hide")
   }
 
@@ -220,23 +231,11 @@ $(document).ready(function () {
   }
 
   function redirectToExamDashboard() {
-    window.location.href = '/exams';
+    window.location.href = '/start-exam';
   }
 
   $("#restart-btn").on("click", function () {
     redirectToExamDashboard();
-  })
-
-  $("#exam_one").on("click", function(){
-    $("#options").addClass("hide");
-    $("#quizForm").removeClass("hide");
-  
-  })
-
-  $("#exam_two").on("click", function(){
-    $("#options").addClass("hide");
-    $("#quizForm").removeClass("hide");
-  
   })
   
 

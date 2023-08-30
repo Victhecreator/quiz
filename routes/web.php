@@ -24,9 +24,9 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/exams', function () {
-    return view('exams');
-})->middleware(['auth', 'verified'])->name('exams');
+// Route::get('/exams', function () {
+//     return view('exams');
+// })->middleware(['auth', 'verified'])->name('exams');
 // Route::get('/exam_history', function () {
 //     return view('exam_history');
 // })->middleware(['auth', 'verified'])->name('exam_history');
@@ -38,7 +38,7 @@ Route::middleware('auth')->group(function () {
     
     Route::post("/create-exam", [ExamsController::class, "create_exam"]);
 
-    Route::get("/start-exam", [ExamsController::class, "index"])->name('exam.start');
+    Route::get("/start-exam", [ExamsController::class, "index"])->name('exams');
     Route::post('/add_result', [ExamsController::class, "add_result"])->name('exam.add_result');
     Route::get('/exam_history', [ExamsController::class, "get_exam_history"])->name('exam.history');
 });

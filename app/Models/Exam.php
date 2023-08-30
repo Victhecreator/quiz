@@ -9,7 +9,7 @@ class Exam extends Model
 {
     use HasFactory;
 
-    protected $fillable =['user_id','exam_id'];
+    protected $fillable =['user_id','exam_id','course_id'];
     protected $table ="exam_info";
 
     public function scores(){
